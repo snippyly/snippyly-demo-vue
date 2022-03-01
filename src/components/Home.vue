@@ -1,4 +1,3 @@
-/* eslint-disable vue/valid-template-root */
 <template>
   <div>
     <header class="u-clearfix u-header u-palette-5-base u-header" id="sec-bbeb">

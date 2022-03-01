@@ -24,10 +24,10 @@
 <script>
 import HelloWorld from "./components/HelloWorld";
 import Home from "./components/Home.vue";
-import { Snippyly } from "@snippyly/sdk";
 import { Users } from "./users";
 
 let selectedUser;
+let Snippyly;
 
 const initSnippyly = async () => {
   const snippyly = await Snippyly.init({
@@ -37,7 +37,7 @@ const initSnippyly = async () => {
     urlAllowList: [], // To allow snippyly in specific screens only
     user: selectedUser, // Pass user with unique userId
   });
-  console.log("app component created", snippyly);
+  console.log("init Snippyly", snippyly);
 };
 
 const signIn = (user) => {
@@ -53,8 +53,13 @@ const signOut = () => {
 };
 
 const getUser = () => {
-  return selectedUser || (localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
-}
+  return (
+    selectedUser ||
+    (localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null)
+  );
+};
 
 export default {
   name: "App",
@@ -77,7 +82,7 @@ export default {
       this.$nextTick(() => {
         this.renderActionContainer = true;
         this.selectedUser = selectedUser;
-      })
+      });
     },
     signOut,
     // isUserLoggedIn: () => !!selectedUser
@@ -85,11 +90,25 @@ export default {
   computed: {
     loggedInUser: () => selectedUser,
   },
-  created() {
-    if (getUser()) {
-      selectedUser = getUser();
-      initSnippyly();
-    }
+  created() {},
+  mounted() {
+    let snippylyScript = document.createElement("script");
+    snippylyScript.setAttribute(
+      "src",
+      "https://cdn.jsdelivr.net/npm/@snippyly/sdk@1.0.6/snippyly.js"
+    );
+    snippylyScript.setAttribute("type", "module");
+    document.head.appendChild(snippylyScript);
+    snippylyScript.onload = () => {
+      // wait till snippyly object is initialized
+      setTimeout(() => {
+        Snippyly = window.snippyly;
+        if (getUser()) {
+          selectedUser = getUser();
+          initSnippyly();
+        }
+      }, 500);
+    };
   },
 };
 </script>
