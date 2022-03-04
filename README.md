@@ -1,7 +1,7 @@
 ## Live Demo
 
 **Here is the live demo link:**
-`https://snippyly-demo-vue.web.app/`
+`[https://snippyly-demo-vue.web.app](https://snippyly-demo-vue.web.app)`
 
 **Currently it has two features:**
 1. Presence: Who is online on this page.
