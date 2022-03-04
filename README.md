@@ -4,8 +4,8 @@
 `https://snippyly-demo-vue.web.app/`
 
 **Currently it has two features:**
-a. Presence: Who is online on this page.
-b. Live Cursors: Where are they on the page. It shows their live cursor position.
+1. Presence: Who is online on this page.
+2. Live Cursors: Where are they on the page. It shows their live cursor position.
 
 **Steps:**
 Step 1: Open the above link in two tabs: tab 1: a regular tab; tab 2: an incognito tab (side by side)
