@@ -1,23 +1,27 @@
 <template>
   <div>
-    <snippyly-presence></snippyly-presence>
-    <snippyly-cursor></snippyly-cursor>
-    <Home>
-      <template v-if="renderActionContainer">
-        <div class="action-container" v-if="!selectedUser">
-          <span>Sign In with:</span>
-          <div v-for="user in users" :key="user.userId">
-            <button class="custom-btn" v-on:click="signIn(user)">
-              {{ user.name }}
-            </button>
+    <div className="header">
+      <snippyly-presence></snippyly-presence>
+      <snippyly-cursor></snippyly-cursor>
+      <div>
+        <!-- <Home> -->
+        <template v-if="renderActionContainer">
+          <div class="action-container" v-if="!selectedUser">
+            <span>Sign In with:</span>
+            <div v-for="user in users" :key="user.userId">
+              <button class="custom-btn" v-on:click="signIn(user)">
+                {{ user.name }}
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="action-container" v-if="selectedUser">
-          <span>Hi, {{ selectedUser.name }}</span>
-          <button class="custom-btn" v-on:click="signOut">Sign Out</button>
-        </div>
-      </template>
-    </Home>
+          <div class="action-container" v-if="selectedUser">
+            <span>Hi, {{ selectedUser.name }}</span>
+            <button class="custom-btn" v-on:click="signOut">Sign Out</button>
+          </div>
+        </template>
+        <!-- </Home> -->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,25 +29,35 @@
 import HelloWorld from "./components/HelloWorld";
 import Home from "./components/Home.vue";
 import { Users } from "./users";
+import loadSnippyly from "./loadSnippyly";
 
 let selectedUser;
-let Snippyly;
+var Snippyly;
 
 const initSnippyly = async () => {
-  const snippyly = await Snippyly.init({
-    apiKey: "hny91vx3KUxEIp61jBd1", // Add your Api Key here
+  const snippyly = await Snippyly.init("hny91vx3KUxEIp61jBd1");
+  console.log("init Snippyly", snippyly);
+
+  if (getUser()) {
+    selectedUser = getUser();
+    identify();
+  }
+};
+
+const identify = async () => {
+  await Snippyly.identify({
+    // Add your Api Key here
     featureAllowList: [], // To allow specific features only
     // userIdAllowList: ['abcd'], // To allow specific users only
     urlAllowList: [], // To allow snippyly in specific screens only
     user: selectedUser, // Pass user with unique userId
   });
-  console.log("init Snippyly", snippyly);
 };
 
 const signIn = (user) => {
   selectedUser = user;
   localStorage.setItem("user", JSON.stringify(selectedUser));
-  initSnippyly();
+  identify();
   this.componentKey += 1;
 };
 
@@ -90,34 +104,28 @@ export default {
   computed: {
     loggedInUser: () => selectedUser,
   },
-  created() {},
   mounted() {
-    let snippylyScript = document.createElement("script");
-    snippylyScript.setAttribute(
-      "src",
-      "https://cdn.jsdelivr.net/npm/@snippyly/sdk@1.0.6/snippyly.js"
-    );
-    snippylyScript.setAttribute("type", "module");
-    document.head.appendChild(snippylyScript);
-    snippylyScript.onload = () => {
-      // wait till snippyly object is initialized
-      setTimeout(() => {
-        Snippyly = window.snippyly;
-        if (getUser()) {
-          selectedUser = getUser();
-          initSnippyly();
-        }
-      }, 500);
-    };
+    loadSnippyly(() => {
+      console.log("snippyly loaded", window.Snippyly);
+      Snippyly = window.Snippyly;
+      initSnippyly();
+    });
   },
 };
 </script>
 
 <style>
+.header {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .custom-btn {
-  background: white;
+  color: white;
   border: 0;
-  color: #0084ff;
+  background: #0084ff;
   padding: 8px 16px;
   border-radius: 16px;
   font-weight: bold;
