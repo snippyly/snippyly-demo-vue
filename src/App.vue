@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div className="header">
+    <snippyly-cursor></snippyly-cursor>
+    <div class="header">
       <snippyly-presence></snippyly-presence>
-      <snippyly-cursor></snippyly-cursor>
       <div>
         <!-- <Home> -->
         <template v-if="renderActionContainer">
@@ -35,7 +35,11 @@ let selectedUser;
 var Snippyly;
 
 const initSnippyly = async () => {
-  const snippyly = await Snippyly.init("hny91vx3KUxEIp61jBd1");
+  const snippyly = await Snippyly.init("hny91vx3KUxEIp61jBd1", {
+    featureAllowList: [], // To allow specific features only
+    // userIdAllowList: ['abcd'], // To allow specific users only
+    urlAllowList: [], // To allow snippyly in specific screens only
+  });
   console.log("init Snippyly", snippyly);
 
   if (getUser()) {
@@ -45,13 +49,7 @@ const initSnippyly = async () => {
 };
 
 const identify = async () => {
-  await Snippyly.identify({
-    // Add your Api Key here
-    featureAllowList: [], // To allow specific features only
-    // userIdAllowList: ['abcd'], // To allow specific users only
-    urlAllowList: [], // To allow snippyly in specific screens only
-    user: selectedUser, // Pass user with unique userId
-  });
+  await Snippyly.identify(selectedUser);
 };
 
 const signIn = (user) => {

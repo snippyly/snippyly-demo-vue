@@ -8,8 +8,46 @@
 
 # Run demo locally
 
+Run `npm run start` command to run demo locally.
 
+Here are key pointers if you are implementing Snippyly SDK in your own Vue (JS) app:
 
+1. Add below code in main.js to allow Snippyly web compnents in vue.
+   ```js
+   Vue.config.ignoredElements = [
+        /snippyly-*/
+    ]
+   ```
+2. Copy `loadSnippyly.js` file in `src` folder to load Snippyly from cdn.
+3. Refer `App.vue` code to load Snippyly and initialize it with your api key.
+   ```js
+   // Call loadSnippyly in mounted function in App.vue
+   mounted() {
+        loadSnippyly(() => {
+            console.log("snippyly loaded", window.Snippyly);
+            Snippyly = window.Snippyly;
+            initSnippyly();
+        });
+    }
+   ```
+   ```js
+   // Call initSnippyly to initialize Snippyly with ApiKey
+   const snippyly = await Snippyly.init("YOUR_API_KEY_HERE", {
+        featureAllowList: [], // To allow specific features only
+        userIdAllowList: [], // To allow specific users only
+        urlAllowList: [], // To allow snippyly in specific screens only
+    });
+   ```
+   ```JS
+   // Once snippyly is initialized and logged in user is available then call identify method
+   const identify = async () => {
+        await Snippyly.identify(selectedUser);
+    };
+   ```
+4. If you want to show user cursors then add `<snippyly-cursor></snippyly-cursor>` in `App.vue` file.
+5. If you want to show user presence then add `<snippyly-presence></snippyly-presence>`. In this demo, this tag is added in `App.vue` component, but it can be added in any other component you want.
+
+For more instructions and customization, please follow SDK Documentation.
 
 # Live demo
 
