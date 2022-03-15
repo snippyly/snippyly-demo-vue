@@ -7,6 +7,9 @@
       "hosting": {
         "default": [
           "snippyly-demo-vue"
+        ],
+        "wdp": [
+          "snippyly-demo-vue-wdp"
         ]
       }
     }

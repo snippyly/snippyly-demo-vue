@@ -3,6 +3,17 @@
     <snippyly-cursor></snippyly-cursor>
     <div class="header">
       <snippyly-presence></snippyly-presence>
+      <div class="menu-container">
+        <span
+          v-for="menu in menus"
+          :key="menu.name"
+          class="menu"
+          :class="{ selected: selectedMenu.name === menu.name }"
+          v-on:click="onMenuChange(menu)"
+        >
+          {{ menu.name }}
+        </span>
+      </div>
       <div>
         <!-- <Home> -->
         <template v-if="renderActionContainer">
@@ -22,6 +33,49 @@
         <!-- </Home> -->
       </div>
     </div>
+    <div>
+      <div class="tabs-container">
+        <div class="tabs-block">
+          <div
+            v-for="(tab, index) in tabs"
+            :key="index"
+            class="tab"
+            :class="{ selected: selectedTab === index + 1 }"
+            v-on:click="onSelectTab(index + 1)"
+          >
+            {{ tab }}
+          </div>
+        </div>
+        <div class="tabs-content">
+          <div v-if="selectedTab">
+            <span
+              >You are on {{ selectedMenu.name }},
+              {{ tabs[selectedTab - 1] }}.</span
+            ><br />
+            <span class="clear-btn" v-on:click="onSelectTab(undefined)"
+              >Clear Selection</span
+            >
+          </div>
+          <div v-if="!selectedTab">
+            You are on {{ selectedMenu.name }}.<br />You haven't selected any
+            sections.
+          </div>
+        </div>
+      </div>
+      <div class="notes-container">
+        <h3>NOTE:</h3>
+        <ul>
+          <li>
+            Presence: The avatar of other online users shows at document level.
+          </li>
+          <li>
+            Cursors: Cursors of others online show at Section level. If no
+            section is selected it will show at Document level.
+          </li>
+          <li>Sections are always under Documents in hierarchy.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,6 +87,17 @@ import loadSnippyly from "./loadSnippyly";
 
 let selectedUser;
 var Snippyly;
+
+const menus = [
+  { name: "Document 1", link: "" },
+  { name: "Document 2", link: "document-2" },
+  { name: "Document 3", link: "document-3" },
+];
+
+let selectedMenu = menus[0];
+
+const tabs = ["Section 1", "Section 2", "Section 3"];
+let selectedTab;
 
 const initSnippyly = async () => {
   const snippyly = await Snippyly.init("hny91vx3KUxEIp61jBd1", {
@@ -73,6 +138,23 @@ const getUser = () => {
   );
 };
 
+const updateDocumentId = (documentId) => {
+  if (Snippyly) {
+    Snippyly.setDocumentId(documentId);
+  }
+};
+
+const updateDocumentParams = () => {
+  if (Snippyly) {
+    if (selectedTab) {
+      const params = { selectedTab };
+      Snippyly.setDocumentParams(params);
+    } else {
+      Snippyly.removeDocumentParams();
+    }
+  }
+};
+
 export default {
   name: "App",
   components: {
@@ -85,6 +167,10 @@ export default {
       selectedUser: getUser(),
       isUserLoggedIn: !!selectedUser,
       renderActionContainer: true,
+      menus,
+      selectedMenu,
+      tabs,
+      selectedTab,
     };
   },
   methods: {
@@ -97,6 +183,28 @@ export default {
       });
     },
     signOut,
+    onSelectTab(value) {
+      this.renderActionContainer = false;
+      this.selectedTab = value;
+      selectedTab = value;
+      this.$nextTick(() => {
+        this.renderActionContainer = true;
+      });
+      updateDocumentParams();
+    },
+    onMenuChange(menu) {
+      if (menu.name !== selectedMenu.name) {
+        this.renderActionContainer = false;
+        this.selectedMenu = menu;
+        selectedMenu = menu;
+        this.selectedTab = undefined;
+        selectedTab = undefined;
+        this.$nextTick(() => {
+          this.renderActionContainer = true;
+        });
+        updateDocumentId(`${window.location.href}${menu.link}`);
+      }
+    },
     // isUserLoggedIn: () => !!selectedUser
   },
   computed: {
@@ -133,5 +241,59 @@ export default {
 .action-container {
   display: flex;
   align-items: center;
+}
+
+.menu {
+  margin: 0 12px;
+  cursor: pointer;
+}
+
+.menu.selected {
+  color: #0084ff;
+  font-weight: bold;
+}
+
+.tabs-container {
+  display: flex;
+  padding: 24px;
+}
+
+.tabs-block {
+  margin-right: 64px;
+}
+
+.tab {
+  padding: 1rem;
+  margin: 1rem;
+  background: #f7f7f7;
+  min-width: 6rem;
+  text-align: center;
+  border-radius: 6rem;
+  cursor: pointer;
+}
+
+.tab.selected {
+  background: #0084ff;
+  color: white;
+  font-weight: bold;
+}
+
+.tabs-content {
+  flex: 100%;
+  text-align: center;
+  align-self: center;
+}
+
+.clear-btn {
+  cursor: pointer;
+  color: #0084ff;
+  text-decoration: underline;
+}
+
+.notes-container {
+  margin: 24px;
+  padding: 8px 24px;
+  background: #f7f7f7;
+  border-radius: 8px;
 }
 </style>
