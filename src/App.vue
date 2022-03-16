@@ -63,17 +63,20 @@
         </div>
       </div>
       <div class="notes-container">
-        <h3>NOTE:</h3>
-        <ul>
-          <li>
-            Presence: The avatar of other online users shows at document level.
-          </li>
-          <li>
-            Cursors: Cursors of others online show at Section level. If no
-            section is selected it will show at Document level.
-          </li>
-          <li>Sections are always under Documents in hierarchy.</li>
-        </ul>
+        <div class="notes-block">
+          <h3>NOTE:</h3>
+          <ul>
+            <li>
+              Presence: The avatar of other online users shows at document
+              level.
+            </li>
+            <li>
+              Cursors: Cursors of others online show at Section level. If no
+              section is selected it will show at Document level.
+            </li>
+            <li>Sections are always under Documents in hierarchy.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -291,6 +294,12 @@ export default {
 }
 
 .notes-container {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.notes-block {
   margin: 24px;
   padding: 8px 24px;
   background: #f7f7f7;
