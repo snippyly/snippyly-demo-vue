@@ -273,6 +273,7 @@ export default {
   text-align: center;
   border-radius: 6rem;
   cursor: pointer;
+  box-sizing: content-box;
 }
 
 .tab.selected {
