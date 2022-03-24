@@ -22,6 +22,11 @@
         <!-- </Home> -->
       </div>
     </div>
+    <div class="box-container">
+      <div class="box" v-for="box in boxes" :key="box" :id="'box' + box">
+        <span>{{ box }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -85,6 +90,7 @@ export default {
       selectedUser: getUser(),
       isUserLoggedIn: !!selectedUser,
       renderActionContainer: true,
+      boxes: Array.from({ length: 25 }, (_, i) => i + 1),
     };
   },
   methods: {
@@ -133,5 +139,22 @@ export default {
 .action-container {
   display: flex;
   align-items: center;
+}
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  height: 200px;
+  /* min-width: 200px; */
+  background: greenyellow;
+  border-radius: 8px;
+  flex: 0 0 202px;
+  margin: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
 }
 </style>
