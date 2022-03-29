@@ -44,6 +44,13 @@
             v-on:click="onSelectTab(index + 1)"
           >
             {{ tab }}
+            <div class="presence-container">
+              <snippyly-presence
+                :id="'tab' + index"
+                max-users="1"
+                :document-params="tabDocumentParams[index]"
+              ></snippyly-presence>
+            </div>
           </div>
         </div>
         <div class="tabs-content">
@@ -99,7 +106,10 @@ const menus = [
 
 let selectedMenu = menus[0];
 
-const tabs = ["Section 1", "Section 2", "Section 3"];
+const tabs = ["Child Document 1", "Child Document 2", "Child Document 3"];
+const tabDocumentParams = tabs.map((tab, index) => {
+  return JSON.stringify({ selectedTab: index + 1 });
+});
 let selectedTab;
 
 const initSnippyly = async () => {
@@ -174,6 +184,7 @@ export default {
       selectedMenu,
       tabs,
       selectedTab,
+      tabDocumentParams,
     };
   },
   methods: {
@@ -269,10 +280,11 @@ export default {
   padding: 1rem;
   margin: 1rem;
   background: #f7f7f7;
-  min-width: 6rem;
+  min-width: 12rem;
   text-align: center;
-  border-radius: 6rem;
   cursor: pointer;
+  min-height: 6rem;
+  position: relative;
   box-sizing: content-box;
 }
 
@@ -305,5 +317,17 @@ export default {
   padding: 8px 24px;
   background: #f7f7f7;
   border-radius: 8px;
+}
+
+.presence-container {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.presence-container .s-presence-avatar {
+  width: 1rem !important;
+  height: 1rem !important;
+  font-size: 0.7rem;
 }
 </style>
