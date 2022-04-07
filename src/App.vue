@@ -97,6 +97,7 @@ import loadSnippyly from "./loadSnippyly";
 
 let selectedUser;
 var Snippyly;
+var client;
 
 const menus = [
   { name: "Document 1", link: "" },
@@ -113,12 +114,12 @@ const tabDocumentParams = tabs.map((tab, index) => {
 let selectedTab;
 
 const initSnippyly = async () => {
-  const snippyly = await Snippyly.init("hny91vx3KUxEIp61jBd1", {
+  client = await Snippyly.init("hny91vx3KUxEIp61jBd1", {
     featureAllowList: [], // To allow specific features only
     // userIdAllowList: ['abcd'], // To allow specific users only
     urlAllowList: [], // To allow snippyly in specific screens only
   });
-  console.log("init Snippyly", snippyly);
+  console.log("init Snippyly", client);
 
   if (getUser()) {
     selectedUser = getUser();
@@ -127,7 +128,7 @@ const initSnippyly = async () => {
 };
 
 const identify = async () => {
-  await Snippyly.identify(selectedUser);
+  await client.identify(selectedUser);
 };
 
 const signIn = (user) => {
@@ -152,18 +153,18 @@ const getUser = () => {
 };
 
 const updateDocumentId = (documentId) => {
-  if (Snippyly) {
-    Snippyly.setDocumentId(documentId);
+  if (client) {
+    client.setDocumentId(documentId);
   }
 };
 
 const updateDocumentParams = () => {
-  if (Snippyly) {
+  if (client) {
     if (selectedTab) {
       const params = { selectedTab };
-      Snippyly.setDocumentParams(params);
+      client.setDocumentParams(params);
     } else {
-      Snippyly.removeDocumentParams();
+      client.removeDocumentParams();
     }
   }
 };
