@@ -38,14 +38,15 @@ import loadSnippyly from "./loadSnippyly";
 
 let selectedUser;
 var Snippyly;
+var client;
 
 const initSnippyly = async () => {
-  const snippyly = await Snippyly.init("hny91vx3KUxEIp61jBd1", {
+  client = await Snippyly.init("hny91vx3KUxEIp61jBd1", {
     featureAllowList: [], // To allow specific features only
     // userIdAllowList: ['abcd'], // To allow specific users only
     urlAllowList: [], // To allow snippyly in specific screens only
   });
-  console.log("init Snippyly", snippyly);
+  console.log("init Snippyly", client);
 
   if (getUser()) {
     selectedUser = getUser();
@@ -54,7 +55,7 @@ const initSnippyly = async () => {
 };
 
 const identify = async () => {
-  await Snippyly.identify(selectedUser);
+  await client.identify(selectedUser);
 };
 
 const signIn = (user) => {
