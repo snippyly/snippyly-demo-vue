@@ -1,6 +1,14 @@
 <template>
   <div>
     <snippyly-cursor></snippyly-cursor>
+    <snippyly-comment-tool>
+      <div class="add-comment-btn">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/727/727570.png"
+          alt="Add comment"
+        />
+      </div>
+    </snippyly-comment-tool>
     <div class="header">
       <snippyly-presence></snippyly-presence>
       <div class="menu-container">
@@ -330,5 +338,27 @@ export default {
   width: 1rem !important;
   height: 1rem !important;
   font-size: 0.7rem;
+}
+
+snippyly-comment-tool {
+  position: fixed;
+  z-index: 1000000;
+  bottom: 24px;
+  right: 24px;
+}
+
+snippyly-comment-tool .add-comment-btn {
+  padding: 0.75rem;
+  background: #fff3d1;
+  border-radius: 50%;
+  cursor: pointer;
+  background: white;
+  /* background: #e7e7e7; */
+  box-shadow: 2px 2px 8px -2px grey;
+}
+
+snippyly-comment-tool .add-comment-btn img {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 </style>
