@@ -49,6 +49,8 @@ var Snippyly;
 var client;
 
 const initSnippyly = async () => {
+  console.log("snippyly loaded", window.Snippyly);
+  Snippyly = window.Snippyly;
   client = await Snippyly.init("hny91vx3KUxEIp61jBd1", {
     featureAllowList: [], // To allow specific features only
     // userIdAllowList: ['abcd'], // To allow specific users only
@@ -118,11 +120,7 @@ export default {
     loggedInUser: () => selectedUser,
   },
   mounted() {
-    loadSnippyly(() => {
-      console.log("snippyly loaded", window.Snippyly);
-      Snippyly = window.Snippyly;
-      initSnippyly();
-    });
+    loadSnippyly(initSnippyly);
   },
 };
 </script>
