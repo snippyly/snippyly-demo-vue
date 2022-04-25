@@ -1,6 +1,7 @@
 <template>
   <div>
     <snippyly-cursor></snippyly-cursor>
+    <snippyly-comments></snippyly-comments>
     <snippyly-comment-tool>
       <div class="add-comment-btn">
         <img
@@ -45,7 +46,14 @@ import { Users } from "./users";
 import loadSnippyly from "./loadSnippyly";
 
 let selectedUser;
+
+/**
+ * @type {import('@snippyly/types').Snippyly}
+ */
 var Snippyly;
+/**
+ * @type {import('@snippyly/types').Snippyly}
+ */
 var client;
 
 const initSnippyly = async () => {

@@ -16,6 +16,7 @@
     "vue": "^2.5.2"
   },
   "devDependencies": {
+    "@snippyly/types": "^1.0.29",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
