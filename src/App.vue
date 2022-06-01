@@ -2,6 +2,7 @@
   <div>
     <snippyly-cursor></snippyly-cursor>
     <snippyly-comments></snippyly-comments>
+    <snippyly-comments-sidebar></snippyly-comments-sidebar>
     <snippyly-comment-tool>
       <div class="add-comment-btn">
         <img
