@@ -2,6 +2,7 @@
   <div>
     <snippyly-cursor></snippyly-cursor>
     <snippyly-comments></snippyly-comments>
+    <snippyly-comments-sidebar></snippyly-comments-sidebar>
     <snippyly-comment-tool>
       <div class="add-comment-btn">
         <img
@@ -153,7 +154,7 @@ const initSnippyly = async () => {
 
   // To enable text comment feature
   const commentElement = client.getCommentElement();
-  commentElement.enableTextCommentButton(true);
+  commentElement.enableTextComments(true);
 
   if (getUser()) {
     selectedUser = getUser();
