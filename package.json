@@ -18,7 +18,7 @@
     "vue-router": "^2.8.1"
   },
   "devDependencies": {
-    "@snippyly/types": "^1.0.41",
+    "@snippyly/types": "^1.0.42",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
