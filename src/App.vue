@@ -139,6 +139,10 @@ const initSnippyly = async () => {
   });
   console.log("init Snippyly", client);
 
+  // Enable attachment feature
+  const commentElement = client.getCommentElement();
+  commentElement.enableAttachment(true);
+
   if (getUser()) {
     selectedUser = getUser();
     identify();
