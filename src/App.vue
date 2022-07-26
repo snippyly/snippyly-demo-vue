@@ -78,6 +78,8 @@ const initSnippyly = async () => {
   // To enable text comment feature
   const commentElement = client.getCommentElement();
   commentElement.enableTextComments(true);
+  // Enable attachment feature
+  commentElement.enableAttachment(true);
 
   if (getUser()) {
     selectedUser = getUser();
