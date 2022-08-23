@@ -5,22 +5,14 @@
     <snippyly-comments-sidebar></snippyly-comments-sidebar>
     <snippyly-comment-tool>
       <div class="add-comment-btn">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/727/727570.png"
-          alt="Add comment"
-        />
+        <img src="https://cdn-icons-png.flaticon.com/512/727/727570.png" alt="Add comment" />
       </div>
     </snippyly-comment-tool>
     <div class="header">
       <snippyly-presence></snippyly-presence>
       <div class="menu-container">
-        <span
-          v-for="menu in menus"
-          :key="menu.name"
-          class="menu"
-          :class="{ selected: selectedMenu.name === menu.name }"
-          v-on:click="onMenuChange(menu)"
-        >
+        <span v-for="menu in menus" :key="menu.name" class="menu" :class="{ selected: selectedMenu.name === menu.name }"
+          v-on:click="onMenuChange(menu)">
           {{ menu.name }}
         </span>
       </div>
@@ -46,32 +38,20 @@
     <div>
       <div class="tabs-container">
         <div class="tabs-block">
-          <div
-            v-for="(tab, index) in tabs"
-            :key="index"
-            class="tab"
-            :class="{ selected: selectedTab === index + 1 }"
-            v-on:click="onSelectTab(index + 1)"
-          >
+          <div v-for="(tab, index) in tabs" :key="index" class="tab" :class="{ selected: selectedTab === index + 1 }"
+            v-on:click="onSelectTab(index + 1)">
             {{ tab }}
             <div class="presence-container">
-              <snippyly-presence
-                :id="'tab' + index"
-                max-users="1"
-                :document-params="tabDocumentParams[index]"
-              ></snippyly-presence>
+              <snippyly-presence :id="'tab' + index" max-users="1" :location="tabDocumentParams[index]">
+              </snippyly-presence>
             </div>
           </div>
         </div>
         <div class="tabs-content">
           <div v-if="selectedTab">
-            <span
-              >You are on {{ selectedMenu.name }},
-              {{ tabs[selectedTab - 1] }}.</span
-            ><br />
-            <span class="clear-btn" v-on:click="onSelectTab(undefined)"
-              >Clear Selection</span
-            >
+            <span>You are on {{ selectedMenu.name }},
+              {{ tabs[selectedTab - 1] }}.</span><br />
+            <span class="clear-btn" v-on:click="onSelectTab(undefined)">Clear Selection</span>
           </div>
           <div v-if="!selectedTab">
             You are on {{ selectedMenu.name }}.<br />You haven't selected any
@@ -143,7 +123,7 @@ const initSnippyly = async () => {
   const commentElement = client.getCommentElement();
   commentElement.enableAttachment(true);
 
-  updateDocumentId(`${window.location.href}${selectedMenu.link}`);
+  updateDocumentId(`${window.location.origin}/${selectedMenu.link}`);
 
   if (getUser()) {
     selectedUser = getUser();
@@ -189,9 +169,9 @@ const updateDocumentParams = () => {
   if (client) {
     if (selectedTab) {
       const params = { selectedTab };
-      client.setDocumentParams(params);
+      client.setLocation(params);
     } else {
-      client.removeDocumentParams();
+      client.removeLocation();
     }
   }
 };
@@ -244,7 +224,7 @@ export default {
         this.$nextTick(() => {
           this.renderActionContainer = true;
         });
-        updateDocumentId(`${window.location.href}${menu.link}`);
+        updateDocumentId(`${window.location.origin}/${menu.link}`);
       }
     },
     // isUserLoggedIn: () => !!selectedUser
@@ -276,6 +256,7 @@ export default {
   margin: 0 0 0 16px;
   cursor: pointer;
 }
+
 .action-container {
   display: flex;
   align-items: center;
