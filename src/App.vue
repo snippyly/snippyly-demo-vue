@@ -4,26 +4,17 @@
     <snippyly-comments-sidebar></snippyly-comments-sidebar>
     <snippyly-comment-tool>
       <div class="add-comment-btn">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/727/727570.png"
-          alt="Add comment"
-        />
+        <img src="https://cdn-icons-png.flaticon.com/512/727/727570.png" alt="Add comment" />
       </div>
     </snippyly-comment-tool>
     <div class="header">
       <snippyly-presence></snippyly-presence>
       <div class="menu-container">
         <span class="menu" v-on:click="navigateTo('/')">Home</span>
-        <span class="menu" v-on:click="navigateTo('/stream-view')"
-          >Stream View</span
-        >
-        <span
-          class="menu"
-          v-on:click="
-            navigateTo('https://snippyly-demo-vue-wdp.web.app/', '_blank')
-          "
-          >Document Params</span
-        >
+        <span class="menu" v-on:click="navigateTo('/stream-view')">Stream View</span>
+        <span class="menu" v-on:click="
+          navigateTo('https://snippyly-demo-vue-wdp.web.app/', '_blank')
+        ">Document Params</span>
       </div>
       <div>
         <template v-if="renderActionContainer">
@@ -80,15 +71,30 @@ const initSnippyly = async () => {
   commentElement.enableTextComments(true);
   // Enable attachment feature
   commentElement.enableAttachment(true);
+  // To enable live selection feature
+  const selectionElement = client.getSelectionElement();
+  selectionElement.enableLiveSelection(true);
 
   // Set document id
-  client.setDocumentId(window.location.href);
+  client.setDocumentId(excludeSnippylyParamsFromUrl(window.location.href));
 
   if (getUser()) {
     selectedUser = getUser();
     identify();
   }
 };
+
+const excludeSnippylyParamsFromUrl = (url) => {
+  try {
+    const tempUrl = new URL(url);
+    ['review', 'sreviewId', 'snippyly-user', 'scommentId', 'stagId'].forEach((param) => {
+      tempUrl.searchParams.delete(param);
+    });
+    return tempUrl.href;
+  } catch (err) {
+    return url;
+  }
+}
 
 const identify = async () => {
   await client.identify(selectedUser);
@@ -179,10 +185,12 @@ export default {
   margin: 0 0 0 16px;
   cursor: pointer;
 }
+
 .action-container {
   display: flex;
   align-items: center;
 }
+
 .box-container {
   display: flex;
   flex-wrap: wrap;
