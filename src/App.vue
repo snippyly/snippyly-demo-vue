@@ -122,6 +122,7 @@ const initSnippyly = async () => {
   // Enable attachment feature
   const commentElement = client.getCommentElement();
   commentElement.enableAttachment(true);
+  commentElement.showScreenSizeInfo(true);
 
   updateDocumentId(`${window.location.origin}/${selectedMenu.link}`);
 
