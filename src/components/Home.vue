@@ -1,6 +1,22 @@
 <template>
   <div>
     <snippyly-comments></snippyly-comments>
+    <div class='toolbar-2'>
+      <div class="recorder-buttons">
+        <div>Recorders:</div>
+        <snippyly-recorder-tool type="all"></snippyly-recorder-tool>
+        <snippyly-recorder-tool type="audio"></snippyly-recorder-tool>
+        <snippyly-recorder-tool type="video"></snippyly-recorder-tool>
+        <snippyly-recorder-tool type="screen"></snippyly-recorder-tool>
+      </div>
+      <div class="huddle-buttons">
+        <div>Huddle:</div>
+        <snippyly-huddle-tool type="all"></snippyly-huddle-tool>
+        <snippyly-huddle-tool></snippyly-huddle-tool>
+        <snippyly-huddle-tool type="video"></snippyly-huddle-tool>
+        <snippyly-huddle-tool type="presentation"></snippyly-huddle-tool>
+      </div>
+    </div>
     <div class="box-container">
       <div class="box" v-for="box in boxes" :key="box" :id="'box' + box">
         <span>{{ box }}</span>
@@ -56,35 +72,25 @@
       </ul>
       <p>
         Exercitation minim ad
-        <strong
-          >mollit esse cupidatat cillum tempor esse deserunt mollit aliquip.
+        <strong>mollit esse cupidatat cillum tempor esse deserunt mollit aliquip.
           Occaecat consectetur proident do deserunt nostrud pariatur
-          quis</strong
-        >
+          quis</strong>
         minim eiusmod eu cillum.
-        <i
-          >Excepteur sunt deserunt et duis exercitation
+        <i>Excepteur sunt deserunt et duis exercitation
           <b>nostrud commodo dolor ipsum irure ea.</b> Sit non dolor nisi
-          occaecat consectetur labore excepteur consectetur. Reprehenderit</i
-        >
+          occaecat consectetur labore excepteur consectetur. Reprehenderit</i>
         labore ad deserunt nulla dolor veniam cupidatat nostrud consectetur.
         Cillum ea minim consequat cillum aliquip
-        <u
-          >ad ea elit mollit eu culpa et eu. Amet Lorem deserunt voluptate
-          aliqua</u
-        >
+        <u>ad ea elit mollit eu culpa et eu. Amet Lorem deserunt voluptate
+          aliqua</u>
         esse tempor culpa mollit exercitation veniam exercitation. Consectetur
         cupidatat <b>quis minim aliqua. Irure esse id fugiat</b> occaecat nulla
         ipsum excepteur ea sit aliquip dolore et culpa. Id in officia dolore
         aliqua ullamco anim
-        <s
-          >adipisicing deserunt reprehenderit et.
-          <b
-            >Mollit ea consequat exercitation
-            <u>deserunt cupidatat nulla irure</u> Lorem quis deserunt.</b
-          >
-          Anim id veniam id aliquip occae</s
-        >cat cupidatat duis labore aliquip in sint. Consectetur ea sit velit eu
+        <s>adipisicing deserunt reprehenderit et.
+          <b>Mollit ea consequat exercitation
+            <u>deserunt cupidatat nulla irure</u> Lorem quis deserunt.</b>
+          Anim id veniam id aliquip occae</s>cat cupidatat duis labore aliquip in sint. Consectetur ea sit velit eu
         culpa est eiusmod nisi do aliquip mollit officia tempor aliqua. Ea
         cupidatat <sub>consequat laboris ipsum</sub> consequat est nostrud sint.
         Minim officia occaecat <sup>sint culpa</sup> consequat. Esse amet
@@ -106,4 +112,18 @@ export default {
 </script>
 
 <style>
+.toolbar-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  gap: 24px;
+}
+
+.recorder-buttons,
+.huddle-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 </style>
