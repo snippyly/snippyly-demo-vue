@@ -15,10 +15,11 @@
     "build:deploy:wdp": "npm run build && npm run deploy:wdp"
   },
   "dependencies": {
+    "@snippyly/client": "^1.0.2",
     "vue": "^2.5.2"
   },
   "devDependencies": {
-    "@snippyly/types": "^1.0.54",
+    "@snippyly/types": "^1.0.62",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
