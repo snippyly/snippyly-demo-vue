@@ -13,13 +13,13 @@
     "build:deploy": "npm run build && npm run deploy"
   },
   "dependencies": {
-    "@snippyly/client": "^1.0.2",
+    "@snippyly/client": "^1.0.19",
     "rxjs": "^7.5.5",
     "vue": "^2.5.2",
     "vue-router": "^2.8.1"
   },
   "devDependencies": {
-    "@snippyly/types": "^1.0.62",
+    "@snippyly/types": "^1.0.81",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
