@@ -5,7 +5,7 @@ import App from './App'
 
 Vue.config.productionTip = false
 Vue.config.ignoredElements = [
-  /snippyly-*/
+  /velt-*/
 ]
 
 /* eslint-disable no-new */

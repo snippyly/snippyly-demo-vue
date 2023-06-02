@@ -1,11 +1,11 @@
 <template>
   <div>
-    <snippyly-cursor></snippyly-cursor>
-    <snippyly-comments></snippyly-comments>
-    <snippyly-comments-sidebar></snippyly-comments-sidebar>
-    <snippyly-comment-tool></snippyly-comment-tool>
+    <velt-cursor></velt-cursor>
+    <velt-comments></velt-comments>
+    <velt-comments-sidebar></velt-comments-sidebar>
+    <velt-comment-tool></velt-comment-tool>
     <div class="header">
-      <snippyly-presence></snippyly-presence>
+      <velt-presence></velt-presence>
       <div class="menu-container">
         <span v-for="menu in menus" :key="menu.name" class="menu" :class="{ selected: selectedMenu.name === menu.name }"
           v-on:click="onMenuChange(menu)">
@@ -38,8 +38,8 @@
             v-on:click="onSelectTab(index + 1)">
             {{ tab }}
             <div class="presence-container">
-              <snippyly-presence :id="'tab' + index" max-users="1" :location="tabDocumentParams[index]">
-              </snippyly-presence>
+              <velt-presence :id="'tab' + index" max-users="1" :location="tabDocumentParams[index]">
+              </velt-presence>
             </div>
           </div>
         </div>
@@ -79,11 +79,11 @@
 import HelloWorld from "./components/HelloWorld";
 import Home from "./components/Home.vue";
 import { Users } from "./users";
-import { initSnippyly, getSnippylyClient } from '@snippyly/client';
+import { initVelt, getVeltClient } from '@veltdev/client';
 
 let selectedUser;
 /**
- * @type {import('@snippyly/types').Snippyly}
+ * @type {import('@veldev/types').Velt}
  */
 var client;
 
@@ -101,16 +101,16 @@ const tabDocumentParams = tabs.map((tab, index) => {
 });
 let selectedTab;
 
-const initializeSnippyly = async () => {
-  await initSnippyly('hny91vx3KUxEIp61jBd1');
-  client = await getSnippylyClient();
-  console.log("snippyly loaded", window.Snippyly);
-  console.log("init Snippyly", client);
+const initializeVelt = async () => {
+  await initVelt('hny91vx3KUxEIp61jBd1');
+  client = await getVeltClient();
+  console.log("velt loaded", window.Velt);
+  console.log("init Velt", client);
 
   // Enable attachment feature
   const commentElement = client.getCommentElement();
   commentElement.enableAttachment(true);
-  commentElement.showScreenSizeInfo(true);
+  commentElement.enableDeviceInfo(true);
 
   updateDocumentId(`${window.location.origin}/${selectedMenu.link}`);
 
@@ -222,7 +222,7 @@ export default {
     loggedInUser: () => selectedUser,
   },
   mounted() {
-    initializeSnippyly();
+    initializeVelt();
   },
 };
 </script>
@@ -325,7 +325,7 @@ export default {
   font-size: 0.7rem;
 }
 
-snippyly-comment-tool {
+velt-comment-tool {
   position: fixed;
   bottom: 24px;
   right: 24px;
