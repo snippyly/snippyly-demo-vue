@@ -1,11 +1,11 @@
 import { BehaviorSubject } from 'rxjs';
 
 /**
- * @type {Subject<import('@snippyly/types').Snippyly>}
+ * @type {Subject<import('@veltdev/types').Velt>}
  */
 const subject = new BehaviorSubject(null);
 
-export const SnippylyClient = {
+export const VeltClient = {
   setClient: (client) => subject.next(client),
   getClient: () => subject.asObservable()
 };

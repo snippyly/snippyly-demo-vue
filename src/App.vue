@@ -1,18 +1,18 @@
 <template>
   <div>
-    <snippyly-cursor></snippyly-cursor>
-    <snippyly-comments-sidebar></snippyly-comments-sidebar>
-    <snippyly-comment-tool></snippyly-comment-tool>
-    <snippyly-recorder-control-panel></snippyly-recorder-control-panel>
-    <snippyly-recorder-notes></snippyly-recorder-notes>
-    <snippyly-huddle></snippyly-huddle>
+    <velt-cursor></velt-cursor>
+    <velt-comments-sidebar></velt-comments-sidebar>
+    <velt-comment-tool></velt-comment-tool>
+    <velt-recorder-control-panel></velt-recorder-control-panel>
+    <velt-recorder-notes></velt-recorder-notes>
+    <velt-huddle></velt-huddle>
     <div class="header">
-      <snippyly-presence></snippyly-presence>
+      <velt-presence></velt-presence>
       <div class="menu-container">
         <span class="menu" v-on:click="navigateTo('/')">Home</span>
         <span class="menu" v-on:click="navigateTo('/stream-view')">Stream View</span>
         <span class="menu" v-on:click="
-          navigateTo('https://snippyly-demo-vue-wdp.web.app/', '_blank')
+          navigateTo('https://velt-demo-vue-wdp.web.app/', '_blank')
         ">Document Params</span>
       </div>
       <div>
@@ -40,36 +40,36 @@
 import HelloWorld from "./components/HelloWorld";
 import Home from "./components/Home.vue";
 import { Users } from "./users";
-import { SnippylyClient } from "./snippylyClient";
-import {initSnippyly, getSnippylyClient} from '@snippyly/client';
+import { VeltClient } from "./veltClient";
+import {initVelt, getVeltClient} from '@veltdev/client';
 
 let selectedUser;
 
 /**
- * @type {import('@snippyly/types').Snippyly}
+ * @type {import('@veltdev/types').Velt}
  */
 var client;
 
-const initializeSnippyly = async () => {
-  await initSnippyly('hny91vx3KUxEIp61jBd1');
-  client = await getSnippylyClient();
-  console.log("snippyly loaded", window.Snippyly);
-  console.log("init Snippyly", client);
-  SnippylyClient.setClient(client);
+const initializeVelt = async () => {
+  await initVelt('hny91vx3KUxEIp61jBd1');
+  client = await getVeltClient();
+  console.log("velt loaded", window.Velt);
+  console.log("init Velt", client);
+  VeltClient.setClient(client);
 
   // To enable text comment feature
   const commentElement = client.getCommentElement();
-  commentElement.enableTextComments(true);
+  commentElement.enableTextComments();
   // Enable attachment feature
-  commentElement.enableAttachment(true);
+  commentElement.enableAttachments();
   // Show screen size info
-  commentElement.showScreenSizeInfo(true);
+  commentElement.enableDeviceInfo();
   // To enable live selection feature
   const selectionElement = client.getSelectionElement();
-  selectionElement.enableLiveSelection(true);
+  selectionElement.enableLiveSelection();
 
   // Set document id
-  client.setDocumentId(excludeSnippylyParamsFromUrl(window.location.href));
+  client.setDocumentId(excludeVeltParamsFromUrl(window.location.href));
 
   if (getUser()) {
     selectedUser = getUser();
@@ -77,7 +77,7 @@ const initializeSnippyly = async () => {
   }
 };
 
-const excludeSnippylyParamsFromUrl = (url) => {
+const excludeVeltParamsFromUrl = (url) => {
   try {
     const tempUrl = new URL(url);
     ['review', 'sreviewId', 'snippyly-user', 'scommentId', 'stagId'].forEach((param) => {
@@ -155,7 +155,7 @@ export default {
     loggedInUser: () => selectedUser,
   },
   mounted() {
-    initializeSnippyly();
+    initializeVelt();
   },
 };
 </script>
@@ -202,7 +202,7 @@ export default {
   font-size: 32px;
 }
 
-snippyly-comment-tool {
+velt-comment-tool {
   position: fixed;
   bottom: 24px;
   right: 24px;

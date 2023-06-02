@@ -8,7 +8,7 @@ import StreamView from './components/StreamView.vue'
 
 Vue.config.productionTip = false
 Vue.config.ignoredElements = [
-  /snippyly-*/
+  /velt-*/
 ]
 
 Vue.use(VueRouter);

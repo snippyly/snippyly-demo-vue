@@ -59,18 +59,18 @@
       </p>
     </div>
     <div class="stream-view-comments-container">
-      <snippyly-comments
+      <velt-comments
         stream-view-container-id="streamViewContainer"
-      ></snippyly-comments>
+      ></velt-comments>
     </div>
   </div>
 </template>
 
 <script>
-import { SnippylyClient } from "../snippylyClient";
+import { VeltClient } from "../veltClient";
 
 // /**
-//  * @type {import('@snippyly/types').Snippyly}
+//  * @type {import('@veltdev/types').Velt}
 //  */
 var client;
 
@@ -85,9 +85,9 @@ const enableStreamView = () => {
 export default {
   name: "StreamView",
   mounted() {
-    SnippylyClient.getClient().subscribe((snippylyClient) => {
-      if (snippylyClient) {
-        client = snippylyClient;
+    VeltClient.getClient().subscribe((veltClient) => {
+      if (veltClient) {
+        client = veltClient;
         enableStreamView();
       }
     });

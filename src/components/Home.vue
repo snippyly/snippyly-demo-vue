@@ -1,20 +1,20 @@
 <template>
   <div>
-    <snippyly-comments></snippyly-comments>
+    <velt-comments></velt-comments>
     <div class='toolbar-2'>
       <div class="recorder-buttons">
         <div>Recorders:</div>
-        <snippyly-recorder-tool type="all"></snippyly-recorder-tool>
-        <snippyly-recorder-tool type="audio"></snippyly-recorder-tool>
-        <snippyly-recorder-tool type="video"></snippyly-recorder-tool>
-        <snippyly-recorder-tool type="screen"></snippyly-recorder-tool>
+        <velt-recorder-tool type="all"></velt-recorder-tool>
+        <velt-recorder-tool type="audio"></velt-recorder-tool>
+        <velt-recorder-tool type="video"></velt-recorder-tool>
+        <velt-recorder-tool type="screen"></velt-recorder-tool>
       </div>
       <div class="huddle-buttons">
         <div>Huddle:</div>
-        <snippyly-huddle-tool type="all"></snippyly-huddle-tool>
-        <snippyly-huddle-tool></snippyly-huddle-tool>
-        <snippyly-huddle-tool type="video"></snippyly-huddle-tool>
-        <snippyly-huddle-tool type="presentation"></snippyly-huddle-tool>
+        <velt-huddle-tool type="all"></velt-huddle-tool>
+        <velt-huddle-tool></velt-huddle-tool>
+        <velt-huddle-tool type="video"></velt-huddle-tool>
+        <velt-huddle-tool type="presentation"></velt-huddle-tool>
       </div>
     </div>
     <div class="box-container">
